@@ -6,52 +6,57 @@ public class Main {
         // gebruiker voert 1 char in. Op basis daarvan een PC of laptop te selecteren.
         // druk op q om het programma te stoppen.
         // het programma moet zichzelf herhalen.
-        Cpu cpu = new Cpu(200,250,4.7,"intel","i7");
-        Ram ram = new Ram(82,109, 16, 3000,"Kingston");
-        Psu psu = new Psu(74,115,750,"Seasonic");
-        Gpu gpu = new Gpu(884,1499,"Asus",10,"RTX 3080");
+        Cpu cpu = new Cpu(200,4.7,"intel","i7");
+        Ram ram = new Ram(82, 16, 3000,"Kingston");
+        Psu psu = new Psu(74,750,"Seasonic");
+        Gpu gpu = new Gpu(884,"Asus",10,"RTX 3080");
         MaatwerkComputer PC = new MaatwerkComputer(cpu,ram,psu,gpu);
         System.out.println(PC);
         System.out.println("De winst is " + PC.berekenAbsoluteWinst());
-        Cpu lenovocpu = new Cpu(100,250,4.6,"AMD","Ryzen 7");
-        Ram lenovoram = new Ram(84,109, 12, 2100,"Samsung");
-        Psu lenovopsu = new Psu(75,115,85,"Lenovo");
-        Gpu lenovogpu = new Gpu(884,1499,"AMD",2,"Vega 8");
+        Cpu lenovocpu = new Cpu(100,4.6,"AMD","Ryzen 7");
+        Ram lenovoram = new Ram(84, 12, 2100,"Samsung");
+        Psu lenovopsu = new Psu(75,85,"Lenovo");
+        Gpu lenovogpu = new Gpu(884,"AMD",2,"Vega 8");
         Lenovo lenovo = new Lenovo(999,lenovocpu,lenovoram,lenovopsu,lenovogpu);
         System.out.println(lenovo);
         System.out.println("De winst is " +lenovo.berekenWinst());
 
-        Cpu macbookcpu = new Cpu(90,340,5.1,"Apple Silicon","M1");
-        Ram macbookram  = new Ram(84,109, 8, 2666,"Samsung");
-        Psu macbookpsu = new Psu(75,115,40,"Apple");
-        Gpu macbookgpu = new Gpu(45,88,"Apple",2,"Apple Graphics");
+        Cpu macbookcpu = new Cpu(90,5.1,"Apple Silicon","M1");
+        Ram macbookram  = new Ram(84, 8, 2666,"Samsung");
+        Psu macbookpsu = new Psu(75,40,"Apple");
+        Gpu macbookgpu = new Gpu(45,"Apple",2,"Apple Graphics");
         Macbook macbook = new Macbook(1158,macbookcpu,macbookram,macbookpsu,macbookgpu);
         System.out.println(macbook);
         System.out.println("De winst is "+ macbook.berekenWinst());
 
-        Cpu hpcpu = new Cpu(120,340,3.7,"Intel","i3");
-        Ram hpram  = new Ram(55,109, 12, 2666,"Supermicro");
-        Psu hppsu = new Psu(99,115,65,"HP");
-        Gpu hpgpu = new Gpu(45,88,"Nvidia",2,"MX 350");
+        Cpu hpcpu = new Cpu(120,3.7,"Intel","i3");
+        Ram hpram  = new Ram(55, 12, 2666,"Supermicro");
+        Psu hppsu = new Psu(99,65,"HP");
+        Gpu hpgpu = new Gpu(45,"Nvidia",2,"MX 350");
         HP hp = new HP(750, hpcpu,hpram,hppsu,hpgpu);
         System.out.println(hp);
         System.out.println("De winst is "+ hp.berekenWinst());
 
-        Cpu kkcpu = new Cpu(200,250,4.7,"intel","i5");
-        Ram kkram = new Ram(82,109, 16, 3200,"Crucial");
-        Psu kkpsu = new Psu(74,115,550,"Coolermaster");
-        Gpu kkgpu = new Gpu(884,1499,"MSI",10,"GTX 1660S");
+        Cpu kkcpu = new Cpu(200,4.7,"intel","i5");
+        Ram kkram = new Ram(82, 16, 3200,"Crucial");
+        Psu kkpsu = new Psu(74,550,"Coolermaster");
+        Gpu kkgpu = new Gpu(884,"MSI",10,"GTX 1660S");
         KantEnKlaarSysteem kkPC = new KantEnKlaarSysteem(999,kkcpu,kkram,kkpsu,kkgpu);
         System.out.println(kkPC);
         System.out.println("De winst is "+ kkPC.berekenWinst());
 
-        Cpu pccpu = new Cpu(200,250,5.1,"intel","i3");
-        Ram pcram = new Ram(55,99,12,2400,"Crucial");
-        Psu pcpsu = new Psu(55,79,600,"Antec");
-        Gpu pcgpu = new Gpu(489,749,"PNY",8,"RTX 3060");
+        Cpu pccpu = new Cpu(200,5.1,"intel","i3");
+        Ram pcram = new Ram(55,12,2400,"Crucial");
+        Psu pcpsu = new Psu(55,600,"Antec");
+        Gpu pcgpu = new Gpu(489,"PNY",8,"RTX 3060");
         Computer pc = new Computer(550,pccpu,pcram,pcpsu,pcgpu);
         System.out.println(pc);
         System.out.println("De winst is "+ pc.berekenWinst());
+
+        Cpu intel = new Cpu(200,2.7,"intel","Celeron");
+        System.out.println(intel + " Voor de prijs van: " + intel.verkoopprijs(200));
+        System.out.println(intel.berekenWinst());
+
 
 
 
@@ -76,7 +81,7 @@ class Computer{
         return berekenVerkoopprijs;
     }
     double berekenWinst(){
-        double winst = verkoopbedrag - inkoopbedrag;
+        double winst = verkoopbedrag - (inkoopbedrag)*1.21;
         return winst;
     }
 
@@ -240,12 +245,23 @@ class Cpu{
     private String merknaam;
     private String model;
 
+    double verkoopprijs( double inkoopbedrag){
+        double berekenVerkoopprijs = inkoopbedrag *1.21*1.15;
+        return berekenVerkoopprijs;
+    }
+    double berekenWinst(){
+        double winst = verkoopbedrag - (inkoopbedrag)*1.21;
+        return winst;
+    }
+
+
+
     public Cpu() {
     }
 
-    public Cpu(double inkoopbedrag, double verkoopbedrag, double kloksnelheid, String merknaam, String model) {
+    public Cpu(double inkoopbedrag, double kloksnelheid, String merknaam, String model) {
         this.inkoopbedrag = inkoopbedrag;
-        this.verkoopbedrag = verkoopbedrag;
+        this.verkoopbedrag = verkoopprijs(inkoopbedrag);
         this.kloksnelheid = kloksnelheid;
         this.merknaam = merknaam;
         this.model = model;
@@ -297,19 +313,29 @@ class Cpu{
     }
 }
 class Ram{
-
     private double inkoopbedrag;
     private double verkoopbedrag;
     private double capaciteit;
     private double kloksnelheid;
     private String merk;
 
+
+    double verkoopprijs( double inkoopbedrag){
+        double berekenVerkoopprijs = inkoopbedrag *1.21*1.15;
+        return berekenVerkoopprijs;
+    }
+    double berekenWinst(){
+        double winst = verkoopbedrag - (inkoopbedrag)*1.21;
+        return winst;
+    }
+
+
     public Ram() {
     }
 
-    public Ram(double inkoopbedrag, double verkoopbedrag, double capaciteit, double kloksnelheid, String merk) {
+    public Ram(double inkoopbedrag,double capaciteit, double kloksnelheid, String merk) {
         this.inkoopbedrag = inkoopbedrag;
-        this.verkoopbedrag = verkoopbedrag;
+        this.verkoopbedrag = verkoopprijs(inkoopbedrag);
         this.capaciteit = capaciteit;
         this.kloksnelheid = kloksnelheid;
         this.merk = merk;
@@ -359,19 +385,29 @@ class Ram{
         return "- " + this.merk +" "+ this.capaciteit +"GB "+ this.kloksnelheid+"Mhz";
     }
 }
-class Psu{
-
+class Psu {
     private double inkoopbedrag;
     private double verkoopbedrag;
     private double vermogen;
     private String merk;
 
+
+    double verkoopprijs( double inkoopbedrag){
+        double berekenVerkoopprijs = inkoopbedrag *1.21*1.15;
+        return berekenVerkoopprijs;
+    }
+    double berekenWinst(){
+        double winst = verkoopbedrag - (inkoopbedrag)*1.21;
+        return winst;
+    }
+
+
     public Psu() {
     }
 
-    public Psu(double inkoopbedrag, double verkoopbedrag, double vermogen, String merk) {
+    public Psu(double inkoopbedrag, double vermogen, String merk) {
         this.inkoopbedrag = inkoopbedrag;
-        this.verkoopbedrag = verkoopbedrag;
+        this.verkoopbedrag = verkoopprijs(inkoopbedrag);
         this.vermogen = vermogen;
         this.merk = merk;
     }
@@ -412,20 +448,30 @@ class Psu{
         return "- " + this.merk +" "+ this.vermogen+"W";
     }
 }
-class Gpu{
-
+class Gpu {
     private double inkoopbedrag;
     private double verkoopbedrag;
     private String merk;
     private double geheugen;
     private String model;
 
+
+    double verkoopprijs( double inkoopbedrag){
+        double berekenVerkoopprijs = inkoopbedrag *1.21*1.15;
+        return berekenVerkoopprijs;
+    }
+    double berekenWinst(){
+        double winst = verkoopbedrag - (inkoopbedrag)*1.21;
+        return winst;
+    }
+
+
     public Gpu() {
     }
 
-    public Gpu(double inkoopbedrag, double verkoopbedrag, String merk, double geheugen, String model) {
+    public Gpu(double inkoopbedrag, String merk, double geheugen, String model) {
         this.inkoopbedrag = inkoopbedrag;
-        this.verkoopbedrag = verkoopbedrag;
+        this.verkoopbedrag = verkoopprijs(inkoopbedrag);
         this.merk = merk;
         this.geheugen = geheugen;
         this.model = model;
