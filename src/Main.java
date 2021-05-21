@@ -1,8 +1,11 @@
 public class Main {
 
     public static void main(String[] args) {
-        // onderdelen maken
-        // Maatwerk computer maken
+        // Winstberekenen voor alle klassen ook voor de losse onderdelen
+        // klasse aanmaken winkel met methode voor keuzemenu.
+        // gebruiker voert 1 char in. Op basis daarvan een PC of laptop te selecteren.
+        // druk op q om het programma te stoppen.
+        // het programma moet zichzelf herhalen.
         Cpu cpu = new Cpu(200,250,4.7,"intel","i7");
         Ram ram = new Ram(82,109, 16, 3000,"Kingston");
         Psu psu = new Psu(74,115,750,"Seasonic");
@@ -16,6 +19,7 @@ public class Main {
         Gpu lenovogpu = new Gpu(884,1499,"AMD",2,"Vega 8");
         Lenovo lenovo = new Lenovo(999,lenovocpu,lenovoram,lenovopsu,lenovogpu);
         System.out.println(lenovo);
+        System.out.println("De winst is " +lenovo.berekenWinst());
 
         Cpu macbookcpu = new Cpu(90,340,5.1,"Apple Silicon","M1");
         Ram macbookram  = new Ram(84,109, 8, 2666,"Samsung");
@@ -23,6 +27,7 @@ public class Main {
         Gpu macbookgpu = new Gpu(45,88,"Apple",2,"Apple Graphics");
         Macbook macbook = new Macbook(1158,macbookcpu,macbookram,macbookpsu,macbookgpu);
         System.out.println(macbook);
+        System.out.println("De winst is "+ macbook.berekenWinst());
 
         Cpu hpcpu = new Cpu(120,340,3.7,"Intel","i3");
         Ram hpram  = new Ram(55,109, 12, 2666,"Supermicro");
@@ -30,13 +35,15 @@ public class Main {
         Gpu hpgpu = new Gpu(45,88,"Nvidia",2,"MX 350");
         HP hp = new HP(750, hpcpu,hpram,hppsu,hpgpu);
         System.out.println(hp);
+        System.out.println("De winst is "+ hp.berekenWinst());
 
         Cpu kkcpu = new Cpu(200,250,4.7,"intel","i5");
         Ram kkram = new Ram(82,109, 16, 3200,"Crucial");
         Psu kkpsu = new Psu(74,115,550,"Coolermaster");
         Gpu kkgpu = new Gpu(884,1499,"MSI",10,"GTX 1660S");
-        KantEnKlaarSysteem kkPC = new KantEnKlaarSysteem(777,999,kkcpu,kkram,kkpsu,kkgpu);
+        KantEnKlaarSysteem kkPC = new KantEnKlaarSysteem(999,kkcpu,kkram,kkpsu,kkgpu);
         System.out.println(kkPC);
+        System.out.println("De winst is "+ kkPC.berekenWinst());
 
         Cpu pccpu = new Cpu(200,250,5.1,"intel","i3");
         Ram pcram = new Ram(55,99,12,2400,"Crucial");
@@ -44,6 +51,7 @@ public class Main {
         Gpu pcgpu = new Gpu(489,749,"PNY",8,"RTX 3060");
         Computer pc = new Computer(550,pccpu,pcram,pcpsu,pcgpu);
         System.out.println(pc);
+        System.out.println("De winst is "+ pc.berekenWinst());
 
 
 
@@ -67,6 +75,11 @@ class Computer{
         double berekenVerkoopprijs = inkoopbedrag *1.21*1.15;
         return berekenVerkoopprijs;
     }
+    double berekenWinst(){
+        double winst = verkoopbedrag - inkoopbedrag;
+        return winst;
+    }
+
 
 
     public Computer() {
@@ -175,15 +188,13 @@ class HP extends Laptop{
 
 }
 class KantEnKlaarSysteem extends Computer{
-    private double inkoopbedrag;
-
 
     public KantEnKlaarSysteem() {
     }
 
-    public KantEnKlaarSysteem(double inkoopbedrag, double verkoopbedrag, Cpu cpu, Ram ram, Psu psu, Gpu gpu) {
+    public KantEnKlaarSysteem(double inkoopbedrag, Cpu cpu, Ram ram, Psu psu, Gpu gpu) {
         this.inkoopbedrag = inkoopbedrag;
-        this.verkoopbedrag = verkoopbedrag;
+        this.verkoopbedrag = verkoopprijs(inkoopbedrag);
         this.cpu = cpu;
         this.ram = ram;
         this.psu = psu;
