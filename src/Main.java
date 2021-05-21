@@ -1,3 +1,6 @@
+import java.sql.SQLOutput;
+import java.util.Scanner;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -57,6 +60,9 @@ public class Main {
         System.out.println(intel + " Voor de prijs van: " + intel.verkoopprijs(200));
         System.out.println(intel.berekenWinst());
 
+        Winkel kiezen = new Winkel();
+        kiezen.kiesComputer();
+
 
 
 
@@ -67,6 +73,45 @@ public class Main {
 
 }
 
+class Winkel{
+    boolean winkelen= true;
+
+    void kiesComputer(){
+        while(winkelen) {
+            Scanner invoer = new Scanner(System.in);
+            System.out.println("Welkom bij de mini computerwinkel.\nKies d voor een desktop of l voor een laptop en q om te stoppen");
+            String keuze = invoer.nextLine();
+            if (keuze.equals("d")) {
+                Scanner pc = new Scanner(System.in);
+                System.out.println("U heeft gekozen voor een desktop.\nKies m voor een maatwerk pc of k voor een kant en klaar systeem");
+                String x = pc.nextLine();
+                if (x.equals("m")) {
+                    System.out.println("U heeft gekozen voor een maatwerk pc");
+                } else if (x.equals("k")) {
+                    System.out.println("U heeft gekozen voor een kant en klare pc");
+                }
+            } else if (keuze.equals("l")) {
+                Scanner y = new Scanner(System.in);
+                System.out.println("U heeft gekozen voor een laptop.\n kies a voor een Apple Macbook, kies h voor een HP, kies m voor een MSI of kies l voor een Lenovo.");
+                String laptop = y.nextLine();
+                if (laptop.equals("a")) {
+                    System.out.println("U heeft gekozen voor een Apple");
+                } else if (laptop.equals("h")) {
+                    System.out.println("U heeft gekozen voor een HP");
+                } else if (laptop.equals("m")) {
+                    System.out.println("U heeft gekozen voor een MSI");
+                } else if (laptop.equals("l")) {
+                    System.out.println("U heeft gekozen voor een Lenovo");
+                }
+            } else if (keuze.equals("q")) {
+                System.out.println("Kijken kijken niet kopen.");
+            }
+        }
+
+    }
+
+}
+
 class Computer{
     protected double verkoopbedrag;
     protected double inkoopbedrag;
@@ -74,6 +119,8 @@ class Computer{
     protected Ram ram;
     protected Psu psu;
     protected Gpu gpu;
+
+
 
 
     double verkoopprijs( double inkoopbedrag){
