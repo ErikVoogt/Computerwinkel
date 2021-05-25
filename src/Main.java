@@ -4,11 +4,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        // Winstberekenen voor alle klassen ook voor de losse onderdelen
-        // klasse aanmaken winkel met methode voor keuzemenu.
-        // gebruiker voert 1 char in. Op basis daarvan een PC of laptop te selecteren.
-        // druk op q om het programma te stoppen.
-        // het programma moet zichzelf herhalen.
+        // vanaf switch case naar nieuwe methode.
         Cpu cpu = new Cpu(200,4.7,"intel","i7");
         Ram ram = new Ram(82, 16, 3000,"Kingston");
         Psu psu = new Psu(74,750,"Seasonic");
@@ -80,37 +76,63 @@ class Winkel{
         while(winkelen) {
             Scanner invoer = new Scanner(System.in);
             System.out.println("Welkom bij de mini computerwinkel.\nKies d voor een desktop of l voor een laptop en q om te stoppen");
-            String keuze = invoer.nextLine();
-            if (keuze.equals("d")) {
-                Scanner pc = new Scanner(System.in);
-                System.out.println("U heeft gekozen voor een desktop.\nKies m voor een maatwerk pc of k voor een kant en klaar systeem");
-                String x = pc.nextLine();
-                if (x.equals("m")) {
-                    System.out.println("U heeft gekozen voor een maatwerk pc");
-                } else if (x.equals("k")) {
-                    System.out.println("U heeft gekozen voor een kant en klare pc");
-                }
-            } else if (keuze.equals("l")) {
-                Scanner y = new Scanner(System.in);
+            char x = invoer.next().charAt(0);
+            switch (x) {
+                case 'd':
+                    Scanner pc = new Scanner(System.in);
+                    System.out.println("U heeft gekozen voor een desktop.\nKies m voor een maatwerk pc of k voor een kant en klaar systeem");
+                    char y = pc.next().charAt(0);
+                    switch (y) {
+                        case 'm':
+                        System.out.println("U heeft gekozen voor een maatwerk pc");
+                        break;
+                        case 'k':
+                        System.out.println("U heeft gekozen voor een kant en klare pc");
+                        break;
+                    } break;
+
+
+
+                case 'l' :
+                Scanner p = new Scanner(System.in);
                 System.out.println("U heeft gekozen voor een laptop.\n kies a voor een Apple Macbook, kies h voor een HP, kies m voor een MSI of kies l voor een Lenovo.");
-                String laptop = y.nextLine();
-                if (laptop.equals("a")) {
+                char laptop = p.next().charAt(0);
+                switch(laptop){
+                    case 'a' :
+
                     System.out.println("U heeft gekozen voor een Apple");
-                } else if (laptop.equals("h")) {
-                    System.out.println("U heeft gekozen voor een HP");
-                } else if (laptop.equals("m")) {
+
+                    break;
+
+                    case 'h':
+
+                        System.out.println("U heeft gekozen voor een HP");
+
+                    break;
+
+                    case 'm':
                     System.out.println("U heeft gekozen voor een MSI");
-                } else if (laptop.equals("l")) {
+
+                    break;
+
+                    case 'l':
                     System.out.println("U heeft gekozen voor een Lenovo");
+
+                    break;
                 }
-            } else if (keuze.equals("q")) {
+
+                break;
+                case 'q':
                 System.out.println("Kijken kijken niet kopen.");
+                winkelen = false;
+                break;
             }
+        }
         }
 
     }
 
-}
+
 
 class Computer{
     protected double verkoopbedrag;
@@ -284,12 +306,47 @@ class MaatwerkComputer extends Computer{
 
 
 }
-class Cpu{
+class Componenten{
+    protected double inkoopbedrag;
+    protected double verkoopbedrag;
+    protected String merk;
 
-    private double inkoopbedrag;
-    private double verkoopbedrag;
+    public Componenten() {
+    }
+
+    public Componenten(double inkoopbedrag, double verkoopbedrag, String merk) {
+        this.inkoopbedrag = inkoopbedrag;
+        this.verkoopbedrag = verkoopbedrag;
+        this.merk = merk;
+    }
+
+    public double getInkoopbedrag() {
+        return inkoopbedrag;
+    }
+
+    public void setInkoopbedrag(double inkoopbedrag) {
+        this.inkoopbedrag = inkoopbedrag;
+    }
+
+    public double getVerkoopbedrag() {
+        return verkoopbedrag;
+    }
+
+    public void setVerkoopbedrag(double verkoopbedrag) {
+        this.verkoopbedrag = verkoopbedrag;
+    }
+
+    public String getMerk() {
+        return merk;
+    }
+
+    public void setMerk(String merk) {
+        this.merk = merk;
+    }
+}
+class Cpu extends Componenten{
+
     private double kloksnelheid;
-    private String merknaam;
     private String model;
 
     double verkoopprijs( double inkoopbedrag){
@@ -306,29 +363,14 @@ class Cpu{
     public Cpu() {
     }
 
-    public Cpu(double inkoopbedrag, double kloksnelheid, String merknaam, String model) {
+    public Cpu(double inkoopbedrag, double kloksnelheid, String merk, String model) {
         this.inkoopbedrag = inkoopbedrag;
         this.verkoopbedrag = verkoopprijs(inkoopbedrag);
         this.kloksnelheid = kloksnelheid;
-        this.merknaam = merknaam;
+        this.merk = merk;
         this.model = model;
     }
 
-    public double getInkoopbedrag() {
-        return inkoopbedrag;
-    }
-
-    public void setInkoopbedrag(double inkoopbedrag) {
-        this.inkoopbedrag = inkoopbedrag;
-    }
-
-    public double getVerkoopbedrag() {
-        return verkoopbedrag;
-    }
-
-    public void setVerkoopbedrag(int verkoopbedrag) {
-        this.verkoopbedrag = verkoopbedrag;
-    }
 
     public double getKloksnelheid() {
         return kloksnelheid;
@@ -338,13 +380,6 @@ class Cpu{
         this.kloksnelheid = kloksnelheid;
     }
 
-    public String getMerknaam() {
-        return merknaam;
-    }
-
-    public void setMerknaam(String merknaam) {
-        this.merknaam = merknaam;
-    }
 
     public String getModel() {
         return model;
@@ -356,15 +391,13 @@ class Cpu{
 
     @Override
     public String toString() {
-        return "- " + this.merknaam +" "+ this.model +" "+ this.kloksnelheid+"Ghz";
+        return "- " + this.merk +" "+ this.model +" "+ this.kloksnelheid+"Ghz";
     }
 }
-class Ram{
-    private double inkoopbedrag;
-    private double verkoopbedrag;
+class Ram extends Componenten{
     private double capaciteit;
     private double kloksnelheid;
-    private String merk;
+
 
 
     double verkoopprijs( double inkoopbedrag){
@@ -388,21 +421,7 @@ class Ram{
         this.merk = merk;
     }
 
-    public double getInkoopbedrag() {
-        return inkoopbedrag;
-    }
 
-    public void setInkoopbedrag(double inkoopbedrag) {
-        this.inkoopbedrag = inkoopbedrag;
-    }
-
-    public double getVerkoopbedrag() {
-        return verkoopbedrag;
-    }
-
-    public void setVerkoopbedrag(double verkoopbedrag) {
-        this.verkoopbedrag = verkoopbedrag;
-    }
 
     public double getCapaciteit() {
         return capaciteit;
@@ -420,23 +439,15 @@ class Ram{
         this.kloksnelheid = kloksnelheid;
     }
 
-    public String getMerk() {
-        return merk;
-    }
-
-    public void setMerk(String merk) {
-        this.merk = merk;
-    }
     @Override
     public String toString() {
         return "- " + this.merk +" "+ this.capaciteit +"GB "+ this.kloksnelheid+"Mhz";
     }
 }
-class Psu {
-    private double inkoopbedrag;
-    private double verkoopbedrag;
+class Psu extends Componenten {
+
     private double vermogen;
-    private String merk;
+
 
 
     double verkoopprijs( double inkoopbedrag){
@@ -459,21 +470,7 @@ class Psu {
         this.merk = merk;
     }
 
-    public double getInkoopbedrag() {
-        return inkoopbedrag;
-    }
 
-    public void setInkoopbedrag(double inkoopbedrag) {
-        this.inkoopbedrag = inkoopbedrag;
-    }
-
-    public double getVerkoopbedrag() {
-        return verkoopbedrag;
-    }
-
-    public void setVerkoopbedrag(double verkoopbedrag) {
-        this.verkoopbedrag = verkoopbedrag;
-    }
 
     public double getVermogen() {
         return vermogen;
@@ -483,22 +480,12 @@ class Psu {
         this.vermogen = vermogen;
     }
 
-    public String getMerk() {
-        return merk;
-    }
-
-    public void setMerk(String merk) {
-        this.merk = merk;
-    }
     @Override
     public String toString() {
         return "- " + this.merk +" "+ this.vermogen+"W";
     }
 }
-class Gpu {
-    private double inkoopbedrag;
-    private double verkoopbedrag;
-    private String merk;
+class Gpu extends Componenten{
     private double geheugen;
     private String model;
 
@@ -522,30 +509,6 @@ class Gpu {
         this.merk = merk;
         this.geheugen = geheugen;
         this.model = model;
-    }
-
-    public double getInkoopbedrag() {
-        return inkoopbedrag;
-    }
-
-    public void setInkoopbedrag(double inkoopbedrag) {
-        this.inkoopbedrag = inkoopbedrag;
-    }
-
-    public double getVerkoopbedrag() {
-        return verkoopbedrag;
-    }
-
-    public void setVerkoopbedrag(int verkoopbedrag) {
-        this.verkoopbedrag = verkoopbedrag;
-    }
-
-    public String getMerk() {
-        return merk;
-    }
-
-    public void setMerk(String merk) {
-        this.merk = merk;
     }
 
     public double getGeheugen() {
